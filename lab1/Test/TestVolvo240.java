@@ -19,10 +19,10 @@ public class TestVolvo240 {
         Car car = new Volvo240(4, 200, Color.blue, "Car", 10, 0, 0);
         car.move();
         System.out.println("Initial Speed: " + car.getCurrentSpeed());
-        java.util.List<Double> coordinateList = new ArrayList<>();
-        coordinateList.add(10.0);
-        coordinateList.add(0.0);
-        List<Double> CarCords = new ArrayList<>();
+        java.util.List<Integer> coordinateList = new ArrayList<>();
+        coordinateList.add(10);
+        coordinateList.add(0);
+        List<Integer> CarCords = new ArrayList<>();
         CarCords.add(car.getY());
         CarCords.add(car.getX());
 
@@ -54,12 +54,12 @@ public class TestVolvo240 {
     @Test
     public void test_coordinates_car(){
         Car car = new Volvo240(4, 100, Color.red, "Volvo240", 0, 10,20);
-        List<Double> coordinateList = new ArrayList<>();
+        List<Integer> coordinateList = new ArrayList<>();
         coordinateList.add(car.getX());
         coordinateList.add(car.getY());
-        List<Double> TestCords = new ArrayList<>();
-        TestCords.add(10.0);
-        TestCords.add(20.0);
+        List<Integer> TestCords = new ArrayList<>();
+        TestCords.add(10);
+        TestCords.add(20);
         assertEquals(TestCords, coordinateList);
     }
 

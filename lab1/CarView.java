@@ -18,38 +18,23 @@ public class CarView extends JFrame{
     public static final int X = 800;
     public static final int Y = 800;
 
-    private ViewListener viewListener;
 
 
     // The controller member
 
     DrawPanel drawPanel;
+    Widget widget;
+    ArrayList<JComponent> components;
 
-    ArrayList<Workshop<Volvo240>> shops;
-    ArrayList<Car> cars;
-    JPanel controlPanel = new JPanel();
-
-    JPanel gasPanel = new JPanel();
-    JSpinner gasSpinner = new JSpinner();
-    int gasAmount = 0;
-    JLabel gasLabel = new JLabel("Amount of gas");
-
-    JButton gasButton = new JButton("Gas");
-    JButton brakeButton = new JButton("Brake");
-    JButton turboOnButton = new JButton("Saab Turbo on");
-    JButton turboOffButton = new JButton("Saab Turbo off");
-    JButton liftBedButton = new JButton("Scania Lift Bed");
-    JButton lowerBedButton = new JButton("Lower Lift Bed");
-
-    JButton startButton = new JButton("Start all cars");
-    JButton stopButton = new JButton("Stop all cars");
 
     // Constructor
     public CarView(String framename, ViewListener viewListener, ArrayList<Car> cars, ArrayList<Workshop<Volvo240>> shops){
-        this.viewListener = viewListener;
         this.drawPanel = new DrawPanel(X, Y-240, cars, shops);
+        this.widget = new Widget(viewListener);
         initComponents(framename);
     }
+
+
 
     private void initComponents(String title) {
 
@@ -59,63 +44,31 @@ public class CarView extends JFrame{
 
         this.add(drawPanel);
 
+        components = widget.returnComponents();
 
-        SpinnerModel spinnerModel =
-                new SpinnerNumberModel(0, //initial value
-                        0, //min
-                        100, //max
-                        1);//step
-        gasSpinner = new JSpinner(spinnerModel);
-        gasSpinner.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                gasAmount = (int) ((JSpinner)e.getSource()).getValue();
+
+        for (JComponent comp : components){
+            if (comp.getLayout() instanceof GridLayout){
+                comp.setBackground(Color.red);
+                comp.setForeground(Color.black);
+                comp.setPreferredSize(new Dimension((X/2)+4, 200));
+                this.add(comp);
+
+
+            }else{
+                comp.setBackground(Color.red);
+                comp.setForeground(Color.black);
+                comp.setPreferredSize(new Dimension(X/5-15,200));
+                this.add(comp);
             }
-        });
-
-        gasPanel.setLayout(new BorderLayout());
-        gasPanel.add(gasLabel, BorderLayout.PAGE_START);
-        gasPanel.add(gasSpinner, BorderLayout.PAGE_END);
-
-        this.add(gasPanel);
-
-        controlPanel.setLayout(new GridLayout(2,4));
-
-        controlPanel.add(gasButton, 0);
-        controlPanel.add(turboOnButton, 1);
-        controlPanel.add(liftBedButton, 2);
-        controlPanel.add(brakeButton, 3);
-        controlPanel.add(turboOffButton, 4);
-        controlPanel.add(lowerBedButton, 5);
-        controlPanel.setPreferredSize(new Dimension((X/2)+4, 200));
-        this.add(controlPanel);
-        controlPanel.setBackground(Color.CYAN);
+        }
 
 
 
-        startButton.setBackground(Color.blue);
-        startButton.setForeground(Color.green);
-        startButton.setPreferredSize(new Dimension(X/5-15,200));
-        this.add(startButton);
-
-
-        stopButton.setBackground(Color.red);
-        stopButton.setForeground(Color.black);
-        stopButton.setPreferredSize(new Dimension(X/5-15,200));
-        this.add(stopButton);
 
 
 
-        gasButton.addActionListener(actionEvent -> viewListener.onGas(gasAmount));
-        brakeButton.addActionListener(actionEvent -> viewListener.onBrake(gasAmount));
-        turboOnButton.addActionListener(actionEvent -> viewListener.onTurboOn());
-        turboOffButton.addActionListener(actionEvent -> viewListener.onTurboOff());
-        liftBedButton.addActionListener(actionEvent -> viewListener.onLiftBed());
-        lowerBedButton.addActionListener(actionEvent -> viewListener.onLowerBed());
-        startButton.addActionListener(actionEvent -> viewListener.onStartAllCars());
-        stopButton.addActionListener(actionEvent -> viewListener.onStopAllCars());
-
-
-        // Make the frame pack all it's components by respecting the sizes if possible.
+            // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();
 
         // Get the computer screen resolution

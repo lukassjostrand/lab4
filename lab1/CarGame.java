@@ -1,5 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.text.View;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class CarGame{
+public class CarGame implements ViewListener{
     private Timer timer;
     private final int delay = 50;
 
@@ -32,9 +33,10 @@ public class CarGame{
 
 
 
-        CarController controller = new CarController(cars);
+        CarController controller = new CarController(this);
 
-        CarView frame = new CarView("CarSim 1.0",controller, cars, shops);
+        CarView frame = new CarView("CarSim 1.0", controller, cars, shops);
+        Widget widget = new Widget(controller);
 
 
         timer = new Timer(delay, new TimerListener(cars, frame, shops));
@@ -47,4 +49,72 @@ public class CarGame{
         new CarGame();
     }
 
+    @Override
+    public void onTurboOn() {
+        cars.forEach(car -> {
+            if (car instanceof Saab95){
+                ((Saab95) car).setTurboOn();
+            }
+        });
+    }
+
+    @Override
+    public void onTurboOff() {
+        cars.forEach(car -> {
+            if (car instanceof Saab95){
+                ((Saab95) car).setTurboOff();
+            }
+        });
+    }
+
+    @Override
+    public void onGas(int amount) {
+        double gas = ((double) amount)/100;
+        cars.forEach(car -> {
+            car.gas(gas);
+        });
+    }
+
+    @Override
+    public void onBrake(int amount) {
+        double brake = (double) amount / 100;
+        cars.forEach(car -> {
+            car.brake(brake);
+        });
+    }
+
+
+    @Override
+    public void onLiftBed() {
+        cars.forEach(car -> {
+            if (car instanceof Scania){
+                ((Scania)car).raiseBed();
+            }
+        });
+
+    }
+
+    @Override
+    public void onLowerBed() {
+        cars.forEach(car -> {
+            if (car instanceof Scania){
+                ((Scania)car).lowerBed();
+            }
+        });
+
+    }
+
+    @Override
+    public void onStartAllCars() {
+        for (Car car : cars) {
+            car.startEngine();
+        }
+    }
+
+    @Override
+    public void onStopAllCars() {
+        for (Car car: cars){
+            car.stopEngine();
+        }
+    }
 }

@@ -2,6 +2,7 @@ import java.awt.*;
 
 public class CarFactory {
 
+
     public Volvo240 createVolvo(int x, int y){
         return new Volvo240(4, 300, Color.BLACK, "Volvo240", 0, x, y);
     }

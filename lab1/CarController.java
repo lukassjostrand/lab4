@@ -3,80 +3,52 @@ import java.util.ArrayList;
 
 public class CarController implements ViewListener{
     // member fields:
-    ArrayList<Car> cars;
 
-    public CarController(ArrayList<Car> cars){
-        this.cars = cars;
+    CarGame model;
+    public CarController(CarGame model){
+        this.model = model;
     }
 
 
     @Override
     public void onTurboOn() {
-        cars.forEach(car -> {
-            if (car instanceof Saab95){
-                ((Saab95) car).setTurboOn();
-            }
-        });
-
+        model.onTurboOn();
     }
 
     @Override
     public void onTurboOff() {
-        cars.forEach(car -> {
-            if (car instanceof Saab95){
-                ((Saab95) car).setTurboOff();
-            }
-        });
+        model.onTurboOff();
     }
 
     @Override
     public void onGas(int amount) {
-        double gas = ((double) amount)/100;
-        cars.forEach(car -> {
-            car.gas(gas);
-        });
+        model.onGas(amount);
     }
 
     @Override
     public void onBrake(int amount) {
-        double brake = (double) amount / 100;
-        cars.forEach(car -> {
-            car.brake(brake);
-        });
+        model.onBrake(amount);
     }
 
 
     @Override
     public void onLiftBed() {
-        cars.forEach(car -> {
-            if (car instanceof Scania){
-                ((Scania)car).raiseBed();
-            }
-        });
-
+        model.onLiftBed();
     }
 
     @Override
     public void onLowerBed() {
-        cars.forEach(car -> {
-            if (car instanceof Scania){
-                ((Scania)car).lowerBed();
-            }
-        });
+        model.onLowerBed();
 
     }
 
     @Override
     public void onStartAllCars() {
-        for (Car car : cars) {
-            car.startEngine();
-        }
+        model.onStartAllCars();
     }
 
     @Override
     public void onStopAllCars() {
-        for (Car car: cars){
-            car.stopEngine();
-        }
+        model.onStopAllCars();
     }
 }

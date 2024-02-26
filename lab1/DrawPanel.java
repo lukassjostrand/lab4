@@ -10,12 +10,8 @@ import javax.swing.*;
 // This panel represents the animated part of the view with the car images.
 
 public class DrawPanel extends JPanel{
-
     public HashMap<Car, BufferedImage> carImageMap;
     public HashMap<Workshop<Volvo240>, BufferedImage> workShopImageMap;
-    private  ArrayList<Car> cars;
-    private ArrayList<Workshop<Volvo240>> shops;
-
 
     // Initializes the panel and reads the images
     public DrawPanel(int x, int y, ArrayList<Car> cars, ArrayList<Workshop<Volvo240>> shops) {

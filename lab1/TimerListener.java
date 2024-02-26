@@ -32,6 +32,7 @@ public class TimerListener implements ActionListener {
             double panelHeight = frame.drawPanel.getHeight();
 
             if (!((car.getX()  < -1 || car.getX() + width   > panelWidth ) || (car.getY()  < -1 || car.getY() + height  > panelHeight ))){
+                check_workshop_collision(car);
                 car.move();
             }else{
                 handleCollision(car);
