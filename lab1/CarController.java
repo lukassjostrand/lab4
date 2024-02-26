@@ -4,8 +4,8 @@ import java.util.ArrayList;
 public class CarController implements ViewListener{
     // member fields:
 
-    CarGame model;
-    public CarController(CarGame model){
+    CarApp model;
+    public CarController(CarApp model){
         this.model = model;
     }
 
