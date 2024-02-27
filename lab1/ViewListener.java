@@ -1,3 +1,5 @@
+import javax.swing.JComboBox;
+
 public interface ViewListener
 {
     void onTurboOn();
@@ -8,4 +10,6 @@ public interface ViewListener
     void onLowerBed();
     void onStartAllCars();
     void onStopAllCars();
+    void onAddCar(JComboBox<String> comboBox);
+    void onRemoveCar();
 }

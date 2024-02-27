@@ -1,8 +1,6 @@
 import javax.swing.*;
-import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +9,7 @@ import java.util.ArrayList;
 public class Widget {
 
     private ViewListener viewListener;
+    private JComboBox<String> carTypeComboBox;
 
     public ArrayList<JComponent> comps;
     JPanel controlPanel = new JPanel();
@@ -29,6 +28,8 @@ public class Widget {
 
     JButton startButton = new JButton("Start all cars");
     JButton stopButton = new JButton("Stop all cars");
+    JButton addButton = new JButton("Add car");
+    JButton removeButton = new JButton("Remove car");
 
     public Widget(ViewListener viewListener){
         this.viewListener = viewListener;
@@ -63,6 +64,13 @@ public class Widget {
         addComponent(controlPanel);
         addComponent(startButton);
         addComponent(stopButton);
+        addComponent(addButton);
+        addComponent(removeButton);
+
+        // Car type selection
+        String[] carTypes = {"Volvo240", "Scania", "Saab95", "Random"};
+        carTypeComboBox = new JComboBox<>(carTypes);
+        controlPanel.add(carTypeComboBox);
 
 
 
@@ -74,6 +82,10 @@ public class Widget {
         lowerBedButton.addActionListener(actionEvent -> viewListener.onLowerBed());
         startButton.addActionListener(actionEvent -> viewListener.onStartAllCars());
         stopButton.addActionListener(actionEvent -> viewListener.onStopAllCars());
+        removeButton.addActionListener(actionEvent -> viewListener.onRemoveCar());
+        addButton.addActionListener(actionEvent -> viewListener.onAddCar(carTypeComboBox));
+
+
     }
 
     public void addComponent(JComponent component){
@@ -83,5 +95,4 @@ public class Widget {
     public ArrayList<JComponent> returnComponents(){
         return this.comps;
     }
-
 }

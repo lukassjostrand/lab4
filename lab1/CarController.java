@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.ArrayList;
 
 
@@ -50,5 +51,15 @@ public class CarController implements ViewListener{
     @Override
     public void onStopAllCars() {
         model.onStopAllCars();
+    }
+
+    @Override
+    public void onAddCar(JComboBox<String> box) {
+        model.onAddCar(box);
+    }
+
+    @Override
+    public void onRemoveCar() {
+        model.onRemoveCar();
     }
 }

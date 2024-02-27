@@ -26,6 +26,8 @@ public class TimerListener implements ActionListener {
 
     public void moveit() {
         for (Car car : cars){
+            frame.drawPanel.loadCarImages(cars);
+            frame.drawPanel.loadWorkshopImages(shops);
             double height = frame.drawPanel.carImageMap.get(car).getHeight();
             double width = frame.drawPanel.carImageMap.get(car).getWidth();
             double panelWidth = frame.drawPanel.getWidth();

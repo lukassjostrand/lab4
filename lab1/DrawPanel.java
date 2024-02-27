@@ -20,13 +20,12 @@ public class DrawPanel extends JPanel{
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.yellow);
-        loadCarImages(cars);
-        loadWorkshopImages(shops);
     }
 
 
     @Override
     protected void paintComponent(Graphics g) {
+
         super.paintComponent(g);
 
         carImageMap.forEach((car, image) -> {
@@ -41,6 +40,9 @@ public class DrawPanel extends JPanel{
 
 
     public void loadCarImages(ArrayList<Car> cars) {
+        carImageMap.clear();
+
+
         for (Car car : cars) {
             try{
                 BufferedImage image = ImageIO.read(Objects.requireNonNull(CarGame.class.getResourceAsStream("pics/" + car.getModelName() + ".jpg")));
@@ -54,6 +56,7 @@ public class DrawPanel extends JPanel{
     }
 
     public void loadWorkshopImages(ArrayList<Workshop<Volvo240>> shop) {
+
         for (Workshop<Volvo240> workshop : shop) {
             try{
                 BufferedImage image = ImageIO.read(Objects.requireNonNull(CarGame.class.getResourceAsStream("pics/" + workshop.getName() + ".jpg")));
@@ -65,4 +68,6 @@ public class DrawPanel extends JPanel{
             }
         }
     }
+
+
 }

@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class CarApp implements ViewListener{
     private Timer timer;
@@ -7,12 +8,14 @@ public class CarApp implements ViewListener{
     public ArrayList<Car> cars;
     public ArrayList<Workshop<Volvo240>> shops;
 
+    public CarFactory factory;
+
 
     public CarApp() {
         this.cars = new ArrayList<>();
         this.shops = new ArrayList<>();
+        this.factory = new CarFactory();
 
-        CarFactory factory = new CarFactory();
 
         // Create cars/workshops using factory methods
         cars.add(factory.createSaab(0, 100));
@@ -98,4 +101,62 @@ public class CarApp implements ViewListener{
             car.stopEngine();
         }
     }
+
+    @Override
+    public void onAddCar(JComboBox<String> box) {
+        String selected = (String) box.getSelectedItem();
+
+        if (cars.size() <= 10){
+            if ("Random".equals(selected)) {
+                int randomIndex = (int) (Math.random() * 3); // 3 car types
+                switch (randomIndex) {
+                    case 0:
+                        cars.add(factory.createSaab(getRandomX(), getRandomY()));
+                        break;
+                    case 1:
+                        cars.add(factory.createVolvo(getRandomX(), getRandomY()));
+                        break;
+                    case 2:
+                        cars.add(factory.createScania(getRandomX(), getRandomY()));
+                        break;
+                }
+            } else if ("Volvo240".equals(selected)) {
+                cars.add(factory.createVolvo(getRandomX(), getRandomY()));
+            } else if ("Saab95".equals(selected)) {
+                cars.add(factory.createSaab(getRandomX(), getRandomY()));
+            } else if ("Scania".equals(selected)) {
+                cars.add(factory.createScania(getRandomX(), getRandomY()));
+            }
+        }else{
+            System.out.println("Cant fit more cars");
+        }
+    }
+
+
+
+    @Override
+    public void onRemoveCar() {
+        System.out.println(cars.size());
+        if (cars.isEmpty()){
+            System.out.println("Cant delete more cars");
+        }else{
+            cars.removeLast();
+        }
+    }
+
+
+    private int getRandomX() {
+
+        return (int) (Math.random() * (CarView.X) -100);
+    }
+
+    private int getRandomY() {
+        return (int) (Math.random() * CarView.Y-240);
+    }
+
+
+
+
+
+
 }
