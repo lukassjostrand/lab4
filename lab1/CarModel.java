@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Objects;
 
 
-// Hejads
 public class CarModel implements ViewListener{
 
     ArrayList<ModelListener> observerList = new ArrayList<>();
@@ -29,9 +28,6 @@ public class CarModel implements ViewListener{
         this.cars = new ArrayList<>();
         this.shops = new ArrayList<>();
         this.factory = new CarFactory();
-
-
-
 
 
         // Create cars/workshops using factory methods
@@ -151,7 +147,6 @@ public class CarModel implements ViewListener{
     }
 
 
-
     @Override
     public void onRemoveCar() {
         System.out.println(cars.size());
@@ -160,7 +155,6 @@ public class CarModel implements ViewListener{
             notifyObservers();
         }
     }
-
 
 
     private int getRandomX() {
