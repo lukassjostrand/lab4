@@ -1,9 +1,5 @@
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
@@ -26,11 +22,13 @@ public class CarView extends JFrame{
     Widget widget;
     ArrayList<JComponent> components;
 
+    CarModel model;
+
 
     // Constructor
-    public CarView(String framename, ViewListener viewListener, ArrayList<Car> cars, ArrayList<Workshop<Volvo240>> shops){
-        this.drawPanel = new DrawPanel(X, Y-240, cars, shops);
-        this.widget = new Widget(viewListener);
+    public CarView(String framename, CarModel model){
+        this.drawPanel = new DrawPanel(X, Y-240, model);
+        this.widget = new Widget(model);
         initComponents(framename);
     }
 
@@ -63,9 +61,6 @@ public class CarView extends JFrame{
             }
         }
 
-
-
-
             // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();
 
@@ -78,4 +73,5 @@ public class CarView extends JFrame{
         // Make sure the frame exits when "x" is pressed
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
 }

@@ -1,12 +1,12 @@
 import javax.swing.*;
-import java.util.ArrayList;
 
 
 public class CarController implements ViewListener{
     // member fields:
 
-    CarApp model;
-    public CarController(CarApp model){
+    CarModel model;
+
+    public CarController(CarModel model){
         this.model = model;
     }
 
@@ -62,4 +62,6 @@ public class CarController implements ViewListener{
     public void onRemoveCar() {
         model.onRemoveCar();
     }
+
+
 }

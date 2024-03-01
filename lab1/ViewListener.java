@@ -12,4 +12,5 @@ public interface ViewListener
     void onStopAllCars();
     void onAddCar(JComboBox<String> comboBox);
     void onRemoveCar();
+
 }

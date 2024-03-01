@@ -1,37 +1,34 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Timer;
 
-import static java.lang.Math.abs;
+public class TimerListener implements ActionListener{
 
-public class TimerListener implements ActionListener {
+    private CarModel model;
 
-    private ArrayList<Workshop<Volvo240>> shops;
-    private ArrayList<Car> cars;
-    private CarView frame;
-    public TimerListener(ArrayList<Car> cars, CarView frame, ArrayList<Workshop<Volvo240>> shops){
-        this.shops = shops;
-        this.cars = cars;
-        this.frame = frame;
+    private ModelListener modelListener; // Reference to CarViewObserver
+
+
+    public TimerListener(CarModel model){
+        this.model = model;
     }
 
     public void actionPerformed(ActionEvent e) {
-        for (Car car : cars){
-                check_workshop_collision(car);
+        for (Car car : model.cars){
+            model.notifyObservers();
+            check_workshop_collision(car);
                 moveit();
             }
         }
 
     public void moveit() {
-        for (Car car : cars){
-            frame.drawPanel.loadCarImages(cars);
-            frame.drawPanel.loadWorkshopImages(shops);
-            double height = frame.drawPanel.carImageMap.get(car).getHeight();
-            double width = frame.drawPanel.carImageMap.get(car).getWidth();
-            double panelWidth = frame.drawPanel.getWidth();
-            double panelHeight = frame.drawPanel.getHeight();
+        for (Car car : model.cars){
+
+            double height = model.carImageMap.get(car).getHeight();
+            double width = model.carImageMap.get(car).getWidth();
+            double panelWidth = 800;
+            double panelHeight = 560;
+
+
 
             if (!((car.getX()  < -1 || car.getX() + width   > panelWidth ) || (car.getY()  < -1 || car.getY() + height  > panelHeight ))){
                 check_workshop_collision(car);
@@ -40,7 +37,6 @@ public class TimerListener implements ActionListener {
                 handleCollision(car);
                 car.move();
             }
-            frame.repaint();
         }
     }
 
@@ -54,7 +50,7 @@ public class TimerListener implements ActionListener {
 
     void check_workshop_collision(Car car){
 
-        shops.forEach((workshop) -> {
+        model.shops.forEach((workshop) -> {
             if ((Math.abs(car.getX() - workshop.getX()) < 2 && Math.abs(car.getY() - workshop.getY()) < 2)){
                 try{
                     workshop.loadCar((Volvo240) car);
@@ -66,4 +62,5 @@ public class TimerListener implements ActionListener {
             }
         });
     }
+
 }
