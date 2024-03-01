@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 
-// Hej
+// Hejads
 public class CarModel implements ViewListener{
 
     ArrayList<ModelListener> observerList = new ArrayList<>();
